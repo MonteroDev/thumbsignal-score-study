@@ -1,2 +1,3 @@
 b3910ab92111a29ece46d2fcda61f9b41205b2a6db3b14c3cea9c2dae5ac1171 *PREREGISTRATION.md
 217a0e2e055768632e99ca0f594d6b2e9503cb86f51efec759a3c0bda3bb8ba0 *pairs.csv
+a824ba700c9cbb1123e3fbb8dec4d5ac223209a5120e8196d8afb72cb5b5c65f *results.json

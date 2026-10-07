@@ -17,8 +17,9 @@ no link, no date and no view count.
 | File | What it is |
 |---|---|
 | `PREREGISTRATION.md` | The methodology, frozen before the first scoring call. Byte for byte the file first committed in ThumbSignal's private repository on 2026-09-04. |
-| `HASHES.txt` | The SHA-256 fingerprints of `PREREGISTRATION.md` and `pairs.csv`, in the format `sha256sum -c` reads. The fingerprint of the frozen channel sample is in the table below. |
+| `HASHES.txt` | The SHA-256 fingerprints of `PREREGISTRATION.md`, `pairs.csv` and `results.json`, in the format `sha256sum -c` reads. The fingerprint of the frozen channel sample is in the table below. |
 | `pairs.csv` | The 321 pairs: the category and four integer scores per pair (winner and loser, with the original titles and with the titles swapped). |
+| `results.json` | The analysis output of 9 September 2026, as the analysis script wrote it: aggregates only (accuracy, interval, test, controls, factors, categories). It includes the figures marked post hoc, which were added after the first analysis of 4 September; they are named `postHoc…` in the file. |
 | `verify.mjs` | Recomputes the accuracy, its 95% interval, the exact test and the title-swap result from `pairs.csv`. Node 18 or later, no dependencies. |
 
 ## How to check it
@@ -56,6 +57,22 @@ usual views, as the pre-registration defines). Columns:
 A pair counts as a success when the better video scored strictly higher. A tie
 counts as a failure. The table gives 191 successes and 17 ties out of 321, and,
 with the titles swapped, 137 successes and 16 ties.
+
+## The analysis output
+
+`results.json` is the file the study page quotes. Two things to know about it.
+
+- The primary result in it (191 of 321, 59.5%, the same interval and test) is the
+  same as in the first analysis of 4 September. What the 9 September run added is
+  the post hoc block (`postHocTieExcludedAccuracy`, `postHocChanceLevel`,
+  `postHocPreciseRanking`), which is why the page labels those figures post hoc.
+- It was produced with the same pipeline fingerprint (`1d2ab116494c`) and the
+  same harvest as the first run. The 4 September version is kept, unchanged, in
+  ThumbSignal's database; it is not published here.
+
+The file has no identifiers. It is published from 7 October 2026: that date, not
+9 September, is what this repository can show. The script that wrote the file is
+not published here.
 
 ## The sequence, as recorded in the private repository
 
