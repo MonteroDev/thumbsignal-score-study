@@ -1,6 +1,8 @@
 # ThumbSignal score study: pre-registration
 
-This repository holds one document and the fingerprints of that document and of the frozen channel sample. It exists
+This repository holds two documents, the pre-registration and its extension of
+November 2026 (see [The extension](#the-extension-2026-11)), and the fingerprints
+of each document and of each frozen channel sample. It exists
 so that anyone can check, from outside ThumbSignal, that the methodology of the
 score-discrimination study is the text that was written before the data was
 scored, and that it has not been edited since. It also holds the score of every
@@ -17,7 +19,8 @@ no link, no date and no view count.
 | File | What it is |
 |---|---|
 | `PREREGISTRATION.md` | The methodology, frozen before the first scoring call. Byte for byte the file first committed in ThumbSignal's private repository on 2026-09-04. |
-| `HASHES.txt` | The SHA-256 fingerprints of `PREREGISTRATION.md`, `pairs.csv` and `results.json`, in the format `sha256sum -c` reads. The fingerprint of the frozen channel sample is in the table below. |
+| `PREREGISTRATION-EXTENSION.md` | The extension's methodology: a larger sample built by rule, factors chosen on one half of the channels and confirmed once on the other. Byte for byte the file committed in the private repository on 2026-11-08. |
+| `HASHES.txt` | The SHA-256 fingerprints of `PREREGISTRATION.md`, `PREREGISTRATION-EXTENSION.md`, `pairs.csv` and `results.json`, in the format `sha256sum -c` reads. The fingerprints of the frozen channel samples are in the table below. |
 | `pairs.csv` | The 321 pairs: the category and four integer scores per pair (winner and loser, with the original titles and with the titles swapped). |
 | `results.json` | The analysis output of 9 September 2026, as the analysis script wrote it: aggregates only (accuracy, interval, test, controls, factors, categories). It includes the figures marked post hoc, which were added after the first analysis of 4 September; they are named `postHoc…` in the file. |
 | `verify.mjs` | Recomputes the accuracy, its 95% interval, the exact test and the title-swap result from `pairs.csv`. Node 18 or later, no dependencies. |
@@ -27,6 +30,7 @@ no link, no date and no view count.
 ```sh
 sha256sum -c HASHES.txt                 # the document is the one fingerprinted below
 git hash-object PREREGISTRATION.md      # must print 3a1c8b5ff1e186d277e16466074c46143f3ae6a1
+git hash-object PREREGISTRATION-EXTENSION.md  # must print 8156600e918ab61aab56fdf273058d7d1676b82c
 node verify.mjs                         # must print 191 of 321 (59.5%) and 137 of 321 (42.7%)
 ```
 
@@ -36,6 +40,8 @@ The document and its fingerprints:
 |---|---|---|
 | `PREREGISTRATION.md` | `b3910ab92111a29ece46d2fcda61f9b41205b2a6db3b14c3cea9c2dae5ac1171` | `3a1c8b5ff1e186d277e16466074c46143f3ae6a1` |
 | `channels.resolved.json`, the frozen sample of 60 channels (not published) | `69c5b9317105587b0feb6ef41499d506be15cf319d868afd7533d54c4df40168` | `feaf876aab8cb320cfd769f79145589c20ea7daa` |
+| `PREREGISTRATION-EXTENSION.md` | `84b0836a3f7647473b58010334598124b9832c38ee591c1e9f9465e87823d02f` | `8156600e918ab61aab56fdf273058d7d1676b82c` |
+| Extension `channels.resolved.json`, the frozen frame of 1,806 channels (not published) | `e84988db80f202fc7bee18d80136db1aac79c53c1789a70dd3afe0146ca02d68` | `cee03083474ba27e98fa721e5c9501dd65d44699` |
 
 The channel list is not published because it names channels, and the study
 reports aggregates only. Its fingerprint is published so that, if the list is
@@ -106,3 +112,32 @@ reorganised on 2026-10-02. There is no amendment file.
 - **It does not show** that the analysis followed the document. The analysis
   code and the harvested data are not published here. The study page lists what each
   control showed, including the ones that cut against the product.
+
+## The extension (2026-11)
+
+`PREREGISTRATION-EXTENSION.md` extends the study to channels nobody chose by
+hand: a frame read by rule from YouTube's "most popular" charts, split by
+channel into a development half and a holdout half. Changes to the score and
+the factors the product may describe as going with better-performing videos are
+chosen on the development half, frozen with a fingerprint, and judged once on
+the holdout. Its pairs are built exactly like the 321 above. No pair, score or
+result of the extension is published here yet.
+
+The sequence, from the private repository and the run's own files (the
+maintainer's record, not an independent one; times CET):
+
+| When | What |
+|---|---|
+| 2026-11-08 | A first harvest of the first 520 channels, read for how many pairs each category yields only (no score, no factor). It showed 36% of the pairs in gaming, which is why rules 6 and 7 of §2 (one top-up, a cap of 400 pairs per category) were written. The document says so. |
+| 2026-11-08 17:01 | The document and the frozen frame of 1,806 channels committed together (private commit `2e7bbde`). |
+| 2026-11-09 09:32 | First scoring call of the extension. |
+| 2026-11-09 | H1 (replication) computed on all extension pairs, which the document allows at any time because it needs no tuning. |
+| 2026-11-09 | This publication. At this point H3 and H4 had not been computed with data, no formula had been frozen, and no holdout statistic existed. |
+
+What this proves is narrower than for the first document: the text existed on
+the date GitHub records for the commit that added it here, which is **after** H1
+was computed. It cannot show that the text came before the first scoring call;
+that rests on the private history. It can show that the text came before the
+factor results, the frozen formula and the holdout test, which are the parts of
+the design that a later edit could have bent. Any change to the document after
+this date is an amendment, dated, and reported with the results.
